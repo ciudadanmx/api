@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -804,11 +803,6 @@ export interface ApiCarteraCartera extends Schema.CollectionType {
     laborysSaldo: Attribute.Decimal;
     ciudadanTokens: Attribute.Decimal;
     ciudadanRendimientos: Attribute.Decimal;
-    user_id: Attribute.Relation<
-      'api::cartera.cartera',
-      'oneToOne',
-      'admin::user'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -859,6 +853,81 @@ export interface ApiGenWalletGenWallet extends Schema.CollectionType {
   };
 }
 
+export interface ApiMessageMessage extends Schema.CollectionType {
+  collectionName: 'messages';
+  info: {
+    singularName: 'message';
+    pluralName: 'messages';
+    displayName: 'Messages';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    receiver: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    sender: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    message_id: Attribute.UID &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    content: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    status: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    timestamp: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::message.message',
+      'oneToMany',
+      'api::message.message'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiWorldCoinWalletWorldCoinWallet
   extends Schema.CollectionType {
   collectionName: 'world_coin_wallets';
@@ -874,9 +943,9 @@ export interface ApiWorldCoinWalletWorldCoinWallet
   attributes: {
     CarteraIdx: Attribute.String;
     ammount: Attribute.Decimal;
-    user_idd: Attribute.Relation<
+    admin_users: Attribute.Relation<
       'api::world-coin-wallet.world-coin-wallet',
-      'oneToOne',
+      'oneToMany',
       'admin::user'
     >;
     genesis: Attribute.Boolean;
@@ -919,6 +988,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::cartera.cartera': ApiCarteraCartera;
       'api::gen-wallet.gen-wallet': ApiGenWalletGenWallet;
+      'api::message.message': ApiMessageMessage;
       'api::world-coin-wallet.world-coin-wallet': ApiWorldCoinWalletWorldCoinWallet;
     }
   }

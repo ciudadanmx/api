@@ -1,0 +1,24 @@
+{
+    "kind": "collectionType",
+    "collectionName": "users",
+    "info": {
+      "singularName": "user",
+      "pluralName": "users",
+      "displayName": "User"
+    },
+    "options": {
+      "timestamps": true
+    },
+    "attributes": {
+      "email": {
+        "type": "string",
+        "required": true,
+        "unique": true
+      },
+      "username": {
+        "type": "string",
+        "required": true
+      }
+    }
+  }
+  

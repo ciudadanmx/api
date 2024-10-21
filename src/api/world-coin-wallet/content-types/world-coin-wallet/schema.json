@@ -18,9 +18,9 @@
     "ammount": {
       "type": "decimal"
     },
-    "user_idd": {
+    "admin_users": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "admin::user"
     },
     "genesis": {

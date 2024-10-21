@@ -23,11 +23,6 @@
     },
     "ciudadanRendimientos": {
       "type": "decimal"
-    },
-    "user_id": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "admin::user"
     }
   }
 }

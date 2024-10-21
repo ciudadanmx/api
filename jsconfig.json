@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "target": "ES2021",
-    "checkJs": true,
-    "allowJs": true
-  }
+    "module": "nodenext",            // Cambia a nodenext para la compatibilidad
+    "moduleResolution": "nodenext",  // Mantén esta opción
+    "target": "ES2021",              // Asegúrate de que esto sea correcto
+    "checkJs": true,                 // Permite la verificación de archivos JS
+    "allowJs": true                   // Permite archivos JS
+  },
+  "exclude": ["node_modules", ".vscode"] // Excluir directorios que no necesitan ser compilados
 }
+
